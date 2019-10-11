@@ -4,6 +4,8 @@ sempre fechar as fuções com {
 função tipo view - uso apenas para visulalizar
 retun - quando executada retorna algo
 No solidity para alterar o conteúdo da variável eu necessito de uma função 
+O ahei ao invés de começar com 1 começa com 0
+Função = cláusula
 */
 
 // exemplo 
@@ -16,7 +18,11 @@ contract Alguel {
     uint256 private valor;
 
     uint256 constant numeroMaximoLegalDeAlugueisParaMulta =3; 
-//Função = cláusula    
+    // bool significa 
+    bool[ ] public statusPagamento;
+    
+    address payable public contaLocatario;
+
     constructor(
         string memory nomeLocador,
         string memory nomeLocatario,
@@ -64,6 +70,13 @@ contract Alguel {
     for (uint i=1; i<mesesRestantes;i++)
     {
         valor = valor+((valor*percentual)/100);
+    }
+    function receberPagamento() public payable
+    {
+        require(msg.value>=valor, "Valor insuficiente");
+        contaLocatario.transfer(msg.value);
+        satsPagamento.push(true);
+        
     }
 }
 }
