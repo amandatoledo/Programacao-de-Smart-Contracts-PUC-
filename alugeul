@@ -31,6 +31,8 @@ contract Alguel {
         locador = nomeLocador;
         locatario = nomeLocatario;
         valor = valorDoAluguel;
+        contaLocatario = paramContaLocatario;
+    
             
     }
     function ValorAtualDoAlguel() public view returns (uint256) 
@@ -71,8 +73,9 @@ contract Alguel {
     {
         valor = valor+((valor*percentual)/100);
     }
-    function receberPagamento() public payable
+    function receberPagamento() public payable 
     {
+    }
         require(msg.value>=valor, "Valor insuficiente");
         contaLocatario.transfer(msg.value);
         satsPagamento.push(true);
