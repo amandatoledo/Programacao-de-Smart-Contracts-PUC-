@@ -82,6 +82,7 @@ contract MichelTelo {
         require (!pago, "Pagamento já realizado.");
         require (msg.value == (simulacaoDoValorDaMulta(now) + valorDoContrato), "Valor diverso do devido.");
         pago = true;
+
         emit pagamentoRealizado(msg.value);
     }
     
@@ -99,4 +100,3 @@ contract MichelTelo {
         retirado = true;
     }
 }
-
