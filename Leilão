@@ -88,6 +88,7 @@ contract Leilao {
         emit fimDoLeilao(maiorOfertante, maiorLance);
         
         // address this = significa que pertence ao item atrás do ponto 
+        //https://www.timestampconvert.com/
 
         contaGovernamental.transfer(address(this).balance);
     }
