@@ -41,12 +41,13 @@ contract TicketERC20 is ERC20Interface, Mortal {
     uint private myTotalSupply;
     uint8 public decimals;
 
+//mapping =arquivo
     mapping (address=>uint) balances;
     mapping (address=>mapping (address=>uint)) ownerAllowances;
 
     constructor() public {
-        myName = "EPD Creditos";
-        mySymbol = "EPDC2019";
+        myName = "amd";
+        mySymbol = "amd92";
         myTotalSupply = 1000000;
         decimals = 0;
         balances[msg.sender] = myTotalSupply;
@@ -101,9 +102,12 @@ contract TicketERC20 is ERC20Interface, Mortal {
         balance = balances[owner];
         require (balance >= amount); 
         _;
+        
+        // -; >>>Condições válidas, o contrato pode seguir. 
     }
 
     modifier isAllowed(address spender, address tokenOwner, uint amount) {
+        // o valor é igual ou maior o valor que ele permite - tokenOwner>>> possui poder de permissão 
         require (amount <= ownerAllowances[tokenOwner][spender]);
         _;
     }
