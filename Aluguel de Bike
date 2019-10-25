@@ -8,7 +8,7 @@ contract Aluguelbike
     uint256 constant public valorLocacao;
     bool[] public requisitoPreenchido;
     address payable public contaLocadora;
-    uint256 constant public periodoMinimodeLocacao;
+    uint256 constant public periodoDeLocacao;
 
     constructor(string memory nomeLocadora, string memory nomeCliente, address payable paramContaLocadora, uint256 valorLocacao) public 
     {
@@ -16,9 +16,15 @@ contract Aluguelbike
         cliente = nomeCliente;
         valorLocacao = valorDiaria*2;
         contaLocadora = paramContaLocadora;
-        periodoMinimodeLocacao = 2;
-        requisitoPreenchido = periodoMinimodeLocacao;
+       
+        
     }
- 
-    function requisito  (uint256 constant periodoMinimodeLocacao) public {
-    require (periodoMinimodeLocacao>2); }
+ // Condições contratuais: A). Período superior a 2 dias. B) Caução = valor +1  
+    function aluguel(uint256 constant _periodoDeLocacao) public payable {
+    require (_periodoDeLocacao>=2);
+    require (msg.value=_periodoDeLocacao*valorDiaria*2);
+    
+    
+    
+        
+    }
