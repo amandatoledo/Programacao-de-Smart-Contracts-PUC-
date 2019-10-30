@@ -4,27 +4,29 @@ contract Aluguelbike
 {
     string public locadora;
     string public cliente;
-    uint256 private valorDiaria=10;
-    uint256 constant public valorLocacao;
+    uint256 public valorDiaria=1 ether;
+    uint256 public valorLocacao;
     bool[] public requisitoPreenchido;
     address payable public contaLocadora;
-    uint256 constant public periodoDeLocacao;
-
-    constructor(string memory nomeLocadora, string memory nomeCliente, address payable paramContaLocadora, uint256 valorLocacao) public 
+    address payable public contaCliente;
+    uint256 public periodoDeLocacao;
+    
+    // 
+    constructor(string memory nomeLocadora, string memory nomeCliente, address payable paramContaLocadora, uint256 _periodoDeLocacao) public payable
     {
+        require (_periodoDeLocacao>=2);
+        require (msg.value==_periodoDeLocacao*(valorDiaria*2));
         locadora = nomeLocadora;
         cliente = nomeCliente;
-        valorLocacao = valorDiaria*2;
+        valorLocacao = msg.value;
         contaLocadora = paramContaLocadora;
-       
-        
+        contaCliente = msg.sender;
     }
- // Condições contratuais: A). Período superior a 2 dias. B) Caução = valor +1  
-    function aluguel(uint256 constant _periodoDeLocacao) public payable {
-    require (_periodoDeLocacao>=2);
-    require (msg.value=_periodoDeLocacao*valorDiaria*2);
-    
-    
-    
-        
+ 
+    function retornabike() public 
+    {
+        require (msg.sender==contaLocadora); 
+        contaLocadora.transfer(valorLocacao/2);
+        contaCliente.transfer(valorLocacao/2);
     }
+}
